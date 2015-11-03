@@ -28,17 +28,17 @@ import java.util.ArrayList;
 public class LegislatorsActivity extends ListActivity {
     public static final String TAG = LegislatorsActivity.class.getSimpleName();
 
-    ArrayList<Legislator> mLegislators;
+    private ArrayList<Legislator> mLegislators;
 
-    ArrayList<String> mLegislatorList;
+    private ArrayList<String> mLegislatorList;
 
     private String mZipcode;
 
-    Context mContext;
     private ArrayAdapter<String> mAdapter;
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_legislators);
 
@@ -46,32 +46,39 @@ public class LegislatorsActivity extends ListActivity {
         Bundle extras = intent.getExtras();
         mZipcode = extras.getString("zipcode");
         // Toast.makeText(this, mZipcode, Toast.LENGTH_LONG).show();
-        getLegislators(mZipcode);
 
+        Runnable displayInfo = new Runnable() {
+            @Override
+            public void run() {
+                mLegislatorList = new ArrayList<String>();
+                for (Legislator legislator : mLegislators) {
+                    String firstName = legislator.getFirstName();
+                    String lastName = legislator.getLastName();
+                    String party = legislator.getParty();
+                    String title = legislator.getTitle();
+                    String info = title + " " + firstName + " " + lastName + "  (" + party + ")";
 
-        for (Legislator legislator : mLegislators){
-            String firstName = legislator.getFirstName();
-            String lastName = legislator.getLastName();
-            String party = legislator.getParty();
-            String title = legislator.getTitle();
-            // String info = title + " " + firstName + " " + lastName + " " + party;
+                    mLegislatorList.add(info);
 
-            addInfo(firstName);
+                }
 
-        }
+                mAdapter=new ArrayAdapter<String>(LegislatorsActivity.this,android.R.layout.simple_list_item_1, mLegislatorList);
 
-        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mLegislatorList);
-        setListAdapter(mAdapter);
+                setListAdapter(mAdapter);
+            }
+        };
 
+        getLegislators(mZipcode, displayInfo);
     }
 
 
-    public void getLegislators(String zipcode){
+
+    public void getLegislators(String zipcode, final Runnable runnable) {
         String apiKey = "c7dff4303dd844eeaaeebdce9ca1fa8d";
 
         String legislatorsURL = "https://congress.api.sunlightfoundation.com/legislators/locate?apikey=" + apiKey + "&zip=" + zipcode;
 
-        if(isNetworkAvailable()) {
+        if (isNetworkAvailable()) {
 
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
@@ -93,35 +100,33 @@ public class LegislatorsActivity extends ListActivity {
 
                         if (response.isSuccessful()) {
                             mLegislators = getLegislatorDetails(jsonData);
+                            runOnUiThread(runnable);
                         } else {
                             alertUserAboutError();
                         }
 
-                    } catch(IOException e) {
+                    } catch (IOException e) {
                         Log.e(TAG, getString(R.string.exception_caught), e);
-                    }
-
-                    catch (JSONException e){
+                    } catch (JSONException e) {
                         Log.e(TAG, getString(R.string.exception_caught), e);
                     }
                 }
             });
-        }
-        else {
+        } else {
             Toast.makeText(this, R.string.Network_Unavailable, Toast.LENGTH_LONG).show();
         }
     }
 
-    private ArrayList<Legislator> getLegislatorDetails(String jsonData) throws JSONException{
+    private ArrayList<Legislator> getLegislatorDetails(String jsonData) throws JSONException {
 
         ArrayList<Legislator> legislatorArrayList = new ArrayList<>();
 
         JSONObject legislatorsData = new JSONObject(jsonData);
         String legislatorsInfo = legislatorsData.getString("results");
-        Log.i("legislators Info", legislatorsInfo );
+        Log.i("legislators Info", legislatorsInfo);
         JSONArray jsonArray = new JSONArray(legislatorsInfo);
 
-        for (int i = 0; i < jsonArray.length(); i++){
+        for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonPart = jsonArray.getJSONObject(i);
             String firstName = jsonPart.getString("first_name");
             String lastName = jsonPart.getString("last_name");
@@ -140,12 +145,6 @@ public class LegislatorsActivity extends ListActivity {
         return legislatorArrayList;
     }
 
-    private void addInfo(String firstName){
-
-        mLegislatorList.add(firstName);
-        mAdapter.notifyDataSetChanged();
-    }
-
 
     private void alertUserAboutError() {
         AlertDialogFragment dialog = new AlertDialogFragment();
@@ -154,11 +153,12 @@ public class LegislatorsActivity extends ListActivity {
 
     private boolean isNetworkAvailable() {
         ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo =  manager.getActiveNetworkInfo();
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
         boolean isAvailable = false;
         if (networkInfo != null && networkInfo.isConnected()) {
             isAvailable = true;
         }
         return isAvailable;
     }
+
 }
