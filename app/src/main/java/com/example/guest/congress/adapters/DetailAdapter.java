@@ -13,12 +13,12 @@ import java.util.ArrayList;
  * Created by Guest on 11/3/15.
  */
 
-class LegislatorAdapter extends BaseAdapter{
+class DetailAdapter extends BaseAdapter{
 
     private Context context;
     private ArrayList<Legislator> mLegislators;
 
-    public LegislatorAdapter(Context context, ArrayList<Legislator> legislators){
+    public DetailAdapter(Context context, ArrayList<Legislator> legislators){
         this.context = context;
         this.mLegislators = legislators;
     }

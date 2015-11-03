@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title"
+        android:id="@+id/titleLabel"
+        android:textSize="20sp"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="10dp"
+        android:textColor="#2d2a8f"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/firstNameLabel"
+        android:textSize="20sp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/titleLabel"
+        android:layout_marginRight="10dp"
+        android:textColor="#2d2a8f"
+        android:layout_toRightOf="@+id/titleLabel"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/lastNameLabel"
+        android:textSize="20sp"
+        android:textColor="#2d2a8f"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/firstNameLabel"
+        android:layout_toRightOf="@+id/firstNameLabel"
+        android:layout_marginRight="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/partyLabel"
+        android:layout_alignBottom="@+id/lastNameLabel"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="23dp"
+        android:textSize="20sp"
+        android:textColor="#2d2a8f"
+        android:layout_toRightOf="@+id/lastNameLabel"
+        android:layout_toEndOf="@+id/lastNameLabel"/>
+</RelativeLayout>
