@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.example.guest.congress.R;
@@ -29,9 +30,12 @@ public class LegislatorsActivity extends ListActivity {
 
     ArrayList<Legislator> mLegislators;
 
+    ArrayList<String> mLegislatorList;
+
     private String mZipcode;
 
     Context mContext;
+    private ArrayAdapter<String> mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +45,23 @@ public class LegislatorsActivity extends ListActivity {
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         mZipcode = extras.getString("zipcode");
-
-        Toast.makeText(this, mZipcode, Toast.LENGTH_LONG).show();
-
+        // Toast.makeText(this, mZipcode, Toast.LENGTH_LONG).show();
         getLegislators(mZipcode);
+
+
+        for (Legislator legislator : mLegislators){
+            String firstName = legislator.getFirstName();
+            String lastName = legislator.getLastName();
+            String party = legislator.getParty();
+            String title = legislator.getTitle();
+            // String info = title + " " + firstName + " " + lastName + " " + party;
+
+            addInfo(firstName);
+
+        }
+
+        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mLegislatorList);
+        setListAdapter(mAdapter);
 
     }
 
@@ -103,6 +120,7 @@ public class LegislatorsActivity extends ListActivity {
         String legislatorsInfo = legislatorsData.getString("results");
         Log.i("legislators Info", legislatorsInfo );
         JSONArray jsonArray = new JSONArray(legislatorsInfo);
+
         for (int i = 0; i < jsonArray.length(); i++){
             JSONObject jsonPart = jsonArray.getJSONObject(i);
             String firstName = jsonPart.getString("first_name");
@@ -121,6 +139,13 @@ public class LegislatorsActivity extends ListActivity {
 
         return legislatorArrayList;
     }
+
+    private void addInfo(String firstName){
+
+        mLegislatorList.add(firstName);
+        mAdapter.notifyDataSetChanged();
+    }
+
 
     private void alertUserAboutError() {
         AlertDialogFragment dialog = new AlertDialogFragment();
