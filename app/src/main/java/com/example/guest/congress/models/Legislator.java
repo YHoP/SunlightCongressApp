@@ -6,9 +6,10 @@ package com.example.guest.congress.models;
  */
 public class Legislator {
 
-    private String mFirstName, mLastName, mParty, mTitle, mEmail, mPhone, mOffice, mWebsite;
+    private String mBioguideId, mFirstName, mLastName, mParty, mTitle, mEmail, mPhone, mOffice, mWebsite;
 
-    public Legislator(String firstName, String lastName, String party, String title, String email, String phone, String office, String website){
+    public Legislator(String bioguideId, String firstName, String lastName, String party, String title, String email, String phone, String office, String website){
+        mBioguideId = bioguideId;
         mFirstName = firstName;
         mLastName = lastName;
         mParty = party;
@@ -18,6 +19,22 @@ public class Legislator {
         mOffice = office;
         mWebsite = website;
 
+    }
+
+    public String getBioguideId() {
+        return mBioguideId;
+    }
+
+    public void setBioguideId(String bioguideId) {
+        mBioguideId = bioguideId;
+    }
+
+    public String getPhone() {
+        return mPhone;
+    }
+
+    public void setPhone(String phone) {
+        mPhone = phone;
     }
 
     public String getFirstName() {
@@ -58,14 +75,6 @@ public class Legislator {
 
     public void setEmail(String email) {
         mEmail = email;
-    }
-
-    public String getePhone() {
-        return mPhone;
-    }
-
-    public void setePhone(String ePhone) {
-        this.mPhone = ePhone;
     }
 
     public String getOffice() {

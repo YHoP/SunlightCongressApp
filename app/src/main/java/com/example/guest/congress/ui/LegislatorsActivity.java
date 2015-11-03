@@ -72,7 +72,6 @@ public class LegislatorsActivity extends ListActivity {
     }
 
 
-
     public void getLegislators(String zipcode, final Runnable runnable) {
         String apiKey = "c7dff4303dd844eeaaeebdce9ca1fa8d";
 
@@ -122,12 +121,15 @@ public class LegislatorsActivity extends ListActivity {
         ArrayList<Legislator> legislatorArrayList = new ArrayList<>();
 
         JSONObject legislatorsData = new JSONObject(jsonData);
+
         String legislatorsInfo = legislatorsData.getString("results");
+
         Log.i("legislators Info", legislatorsInfo);
         JSONArray jsonArray = new JSONArray(legislatorsInfo);
 
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonPart = jsonArray.getJSONObject(i);
+            String bioguide_id = jsonPart.getString("bioguide_id");
             String firstName = jsonPart.getString("first_name");
             String lastName = jsonPart.getString("last_name");
             String party = jsonPart.getString("party");
@@ -137,7 +139,7 @@ public class LegislatorsActivity extends ListActivity {
             String office = jsonPart.getString("office");
             String website = jsonPart.getString("website");
 
-            Legislator thisLegislator = new Legislator(firstName, lastName, party, title, email, phone, office, website);
+            Legislator thisLegislator = new Legislator(bioguide_id, firstName, lastName, party, title, email, phone, office, website);
             legislatorArrayList.add(thisLegislator);
 
         }
@@ -160,5 +162,7 @@ public class LegislatorsActivity extends ListActivity {
         }
         return isAvailable;
     }
+
+
 
 }
