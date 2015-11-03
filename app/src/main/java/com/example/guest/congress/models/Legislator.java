@@ -6,13 +6,18 @@ package com.example.guest.congress.models;
  */
 public class Legislator {
 
-    private static String mFirstName, mLastName, mParty, mTitle;
+    private String mFirstName, mLastName, mParty, mTitle, mEmail, mPhone, mOffice, mWebsite;
 
-    public Legislator(String firstName, String lastName, String party, String title){
+    public Legislator(String firstName, String lastName, String party, String title, String email, String phone, String office, String website){
         mFirstName = firstName;
         mLastName = lastName;
         mParty = party;
         mTitle = title;
+        mEmail = email;
+        mPhone = phone;
+        mOffice = office;
+        mWebsite = website;
+
     }
 
     public String getFirstName() {
@@ -47,5 +52,35 @@ public class Legislator {
         this.mTitle = title;
     }
 
+    public String getEmail() {
+        return mEmail;
+    }
 
+    public void setEmail(String email) {
+        mEmail = email;
+    }
+
+    public String getePhone() {
+        return mPhone;
+    }
+
+    public void setePhone(String ePhone) {
+        this.mPhone = ePhone;
+    }
+
+    public String getOffice() {
+        return mOffice;
+    }
+
+    public void setOffice(String office) {
+        mOffice = office;
+    }
+
+    public String getWebsite() {
+        return mWebsite;
+    }
+
+    public void setWebsite(String website) {
+        mWebsite = website;
+    }
 }

@@ -17,7 +17,9 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -68,15 +70,21 @@ public class LegislatorsActivity extends ListActivity {
 
                 @Override
                 public void onResponse(Response response) throws IOException {
-                    try {String jsonData = response.body().string();
+                    try {
+                        String jsonData = response.body().string();
                         Log.v(TAG, jsonData);
+
                         if (response.isSuccessful()) {
                             mLegislators = getLegislatorDetails(jsonData);
-                                } else {
+                        } else {
                             alertUserAboutError();
                         }
 
                     } catch(IOException e) {
+                        Log.e(TAG, getString(R.string.exception_caught), e);
+                    }
+
+                    catch (JSONException e){
                         Log.e(TAG, getString(R.string.exception_caught), e);
                     }
                 }
@@ -87,11 +95,31 @@ public class LegislatorsActivity extends ListActivity {
         }
     }
 
-    private ArrayList<Legislator> getLegislatorDetails(String jsonData) {
+    private ArrayList<Legislator> getLegislatorDetails(String jsonData) throws JSONException{
 
+        ArrayList<Legislator> legislatorArrayList = new ArrayList<>();
 
+        JSONObject legislatorsData = new JSONObject(jsonData);
+        String legislatorsInfo = legislatorsData.getString("results");
+        Log.i("legislators Info", legislatorsInfo );
+        JSONArray jsonArray = new JSONArray(legislatorsInfo);
+        for (int i = 0; i < jsonArray.length(); i++){
+            JSONObject jsonPart = jsonArray.getJSONObject(i);
+            String firstName = jsonPart.getString("first_name");
+            String lastName = jsonPart.getString("last_name");
+            String party = jsonPart.getString("party");
+            String title = jsonPart.getString("title");
+            String email = jsonPart.getString("oc_email");
+            String phone = jsonPart.getString("phone");
+            String office = jsonPart.getString("office");
+            String website = jsonPart.getString("website");
 
-        return null;
+            Legislator thisLegislator = new Legislator(firstName, lastName, party, title, email, phone, office, website);
+            legislatorArrayList.add(thisLegislator);
+
+        }
+
+        return legislatorArrayList;
     }
 
     private void alertUserAboutError() {
