@@ -24,11 +24,12 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Rep"
         android:id="@+id/titleText"
-        android:layout_marginBottom="30dp"
-        android:layout_marginTop="20dp"
+        android:textSize="18sp"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/websiteText"
-        android:layout_toEndOf="@+id/websiteText"/>
+        android:layout_toRightOf="@+id/photoImage"
+        android:layout_toEndOf="@+id/photoImage"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="40dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -36,10 +37,13 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Chuck"
         android:id="@+id/firstNameText"
-        android:layout_marginBottom="30dp"
+
+        android:textSize="18sp"
         android:layout_below="@+id/titleText"
-        android:layout_alignRight="@+id/emailText"
-        android:layout_alignEnd="@+id/emailText"/>
+        android:layout_toRightOf="@+id/photoImage"
+        android:layout_toEndOf="@+id/photoImage"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="40dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -48,8 +52,11 @@
         android:text="Shumer"
         android:id="@+id/lastNameText"
         android:layout_below="@+id/firstNameText"
-        android:layout_alignLeft="@+id/firstNameText"
-        android:layout_alignStart="@+id/firstNameText"/>
+        android:layout_toRightOf="@+id/photoImage"
+        android:layout_toEndOf="@+id/photoImage"
+        android:textSize="18sp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="40dp"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -61,7 +68,8 @@
         android:layout_below="@+id/photoImage"
         android:layout_alignRight="@+id/photoImage"
         android:layout_alignEnd="@+id/photoImage"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:textSize="18sp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -70,7 +78,8 @@
         android:text="government@info.gov"
         android:id="@+id/emailText"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:textSize="18sp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -80,7 +89,8 @@
         android:id="@+id/phoneText"
         android:layout_below="@+id/emailText"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"/>
+        android:layout_marginTop="32dp"
+        android:textSize="18sp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -90,7 +100,8 @@
         android:id="@+id/officeText"
         android:layout_below="@+id/phoneText"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="47dp"/>
+        android:layout_marginTop="47dp"
+        android:textSize="18sp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -100,6 +111,7 @@
         android:id="@+id/websiteText"
         android:layout_below="@+id/officeText"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="41dp"/>
+        android:layout_marginTop="41dp"
+        android:textSize="18sp"/>
 
 </RelativeLayout>

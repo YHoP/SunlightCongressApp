@@ -1,39 +1,51 @@
 package com.example.guest.congress.ui;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.guest.congress.R;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class DetailActivity extends AppCompatActivity {
+
+    @Bind(R.id.photoImage)ImageView mPhotoImage;
+    @Bind(R.id.titleText)TextView mTitleText;
+    @Bind(R.id.firstNameText) TextView mFirstNameText;
+    @Bind(R.id.lastNameText) TextView mLastNameText;
+    @Bind(R.id.partyText) TextView mPartyText;
+    @Bind(R.id.emailText) TextView mEmailText;
+    @Bind(R.id.phoneText) TextView mPhoneText;
+    @Bind(R.id.officeText) TextView mOfficeText;
+    @Bind(R.id.websiteText) TextView mWebsiteText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        ButterKnife.bind(this);
+
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();
+
+        mTitleText.setText(bundle.getString("title"));
+        mFirstNameText.setText(bundle.getString("first_name"));
+        mLastNameText.setText(bundle.getString("last_name"));
+        mPartyText.setText("( "+ bundle.getString("party") + " )");
+        mEmailText.setText(bundle.getString("oc_email"));
+        mPhoneText.setText(bundle.getString("phone"));
+        mOfficeText.setText(bundle.getString("office"));
+        mWebsiteText.setText(bundle.getString("website"));
+
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_detail, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }
+
+
+// "bioguide_id"  -> photo

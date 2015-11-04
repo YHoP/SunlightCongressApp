@@ -28,6 +28,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import butterknife.ButterKnife;
+
 public class LegislatorsActivity extends ListActivity {
     public static final String TAG = LegislatorsActivity.class.getSimpleName();
 
@@ -54,6 +56,7 @@ public class LegislatorsActivity extends ListActivity {
         Runnable displayInfo = new Runnable() {
             @Override
             public void run() {
+                /*
                 mLegislatorList = new ArrayList<String>();
                 for (Legislator legislator : mLegislators) {
                     String firstName = legislator.getFirstName();
@@ -62,12 +65,11 @@ public class LegislatorsActivity extends ListActivity {
                     String title = legislator.getTitle();
 
                     String info = title + " " + firstName + " " + lastName + "  (" + party + ")";
-
                     mLegislatorList.add(info);
-
                 }
 
-                // mAdapter=new ArrayAdapter<String>(LegislatorsActivity.this, android.R.layout.simple_list_item_1, mLegislatorList);
+                mAdapter=new ArrayAdapter<String>(LegislatorsActivity.this, android.R.layout.simple_list_item_1, mLegislatorList);
+                */
 
                 mAdapter = new ListAdapter(LegislatorsActivity.this, mLegislators);
                 setListAdapter(mAdapter);
@@ -172,6 +174,21 @@ public class LegislatorsActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id){
         super.onListItemClick(l, v, position, id);
+        Legislator thisLegislator = (Legislator) mAdapter.getItem(position);
+        Bundle bundle = new Bundle();
+        bundle.putString("bioguide_id", thisLegislator.getBioguideId());
+        bundle.putString("first_name", thisLegislator.getFirstName());
+        bundle.putString("last_name", thisLegislator.getLastName());
+        bundle.putString("party", thisLegislator.getParty());
+        bundle.putString("title", thisLegislator.getTitle());
+        bundle.putString("oc_email", thisLegislator.getEmail());
+        bundle.putString("phone", thisLegislator.getPhone());
+        bundle.putString("office", thisLegislator.getOffice());
+        bundle.putString("website", thisLegislator.getWebsite());
+
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
 
     }
 
