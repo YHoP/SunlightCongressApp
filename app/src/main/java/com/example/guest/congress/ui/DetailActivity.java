@@ -1,6 +1,8 @@
 package com.example.guest.congress.ui;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,6 +11,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.guest.congress.R;
+import com.koushikdutta.ion.Ion;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -43,9 +50,11 @@ public class DetailActivity extends AppCompatActivity {
         mOfficeText.setText(bundle.getString("office"));
         mWebsiteText.setText(bundle.getString("website"));
 
+        String photoUrl = "https://theunitedstates.io/images/congress/225x275/" + bundle.getString("bioguide_id") + ".jpg";
+        Ion.with(mPhotoImage)
+                //.placeholder(R.drawable.person)
+                .load(photoUrl);
+
     }
 
 }
-
-
-// "bioguide_id"  -> photo

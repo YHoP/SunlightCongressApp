@@ -56,7 +56,7 @@ public class LegislatorsActivity extends ListActivity {
         Runnable displayInfo = new Runnable() {
             @Override
             public void run() {
-                /*
+                /*  Old way of populating before using ListAdapter
                 mLegislatorList = new ArrayList<String>();
                 for (Legislator legislator : mLegislators) {
                     String firstName = legislator.getFirstName();
