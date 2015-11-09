@@ -147,7 +147,8 @@ public class LegislatorsActivity extends ListActivity {
             String office = jsonPart.getString("office");
             String website = jsonPart.getString("website");
 
-            Legislator thisLegislator = new Legislator(bioguide_id, firstName, lastName, party, title, email, phone, office, website);
+
+            Legislator thisLegislator = new Legislator(bioguide_id, firstName, lastName, party, title, email, phone, office, mZipcode, website);
             legislatorArrayList.add(thisLegislator);
 
         }
@@ -184,6 +185,7 @@ public class LegislatorsActivity extends ListActivity {
         bundle.putString("oc_email", thisLegislator.getEmail());
         bundle.putString("phone", thisLegislator.getPhone());
         bundle.putString("office", thisLegislator.getOffice());
+        bundle.putString("zipcode", thisLegislator.getZipcode());
         bundle.putString("website", thisLegislator.getWebsite());
 
         Intent intent = new Intent(this, DetailActivity.class);

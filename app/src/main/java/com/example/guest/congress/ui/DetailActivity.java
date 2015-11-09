@@ -1,23 +1,15 @@
 package com.example.guest.congress.ui;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.guest.congress.R;
 import com.koushikdutta.ion.Ion;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -34,7 +26,10 @@ public class DetailActivity extends AppCompatActivity {
     @Bind(R.id.officeText) TextView mOfficeText;
     @Bind(R.id.websiteText) TextView mWebsiteText;
 
-    String phoneNumber;
+    String mPhoneNumber;
+    String mAddress;
+    String [] addressArray;
+    String mZipcode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +46,15 @@ public class DetailActivity extends AppCompatActivity {
         mPartyText.setText("( "+ bundle.getString("party") + " )");
         mEmailText.setText(bundle.getString("oc_email"));
 
-        // phoneNumber = bundle.getString("phone");
-        phoneNumber = "9717708506";
-        mPhoneText.setText(phoneNumber);
-        phoneNumber = "tel:" + phoneNumber;
+        mPhoneNumber = bundle.getString("phone");
+        mPhoneText.setText(mPhoneNumber);
+        mPhoneNumber = "tel:" + mPhoneNumber;
 
-        mOfficeText.setText(bundle.getString("office"));
+        mAddress = bundle.getString("office");
+        mOfficeText.setText(mAddress);
+        addressArray = mAddress.split(" ");
+        mZipcode = bundle.getString("zipcode");
+
         mWebsiteText.setText(bundle.getString("website"));
 
         String photoUrl = "https://theunitedstates.io/images/congress/225x275/" + bundle.getString("bioguide_id") + ".jpg";
@@ -68,9 +66,29 @@ public class DetailActivity extends AppCompatActivity {
         mPhoneText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri number = Uri.parse(phoneNumber);
+                Uri number = Uri.parse(mPhoneNumber);
                 Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
                 startActivity(callIntent);
+            }
+        });
+
+        mOfficeText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String geoLocation = "geo:0,0?q=";
+
+                for (int i = 0; i < addressArray.length; i++){
+                    geoLocation += addressArray[i];
+                    geoLocation += "+";
+                }
+
+                geoLocation += mZipcode;
+                // http://ziptasticapi.com/
+
+                Uri location = Uri.parse(geoLocation);
+
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
+                startActivity(mapIntent);
             }
         });
 
