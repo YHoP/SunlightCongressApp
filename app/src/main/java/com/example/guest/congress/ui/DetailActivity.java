@@ -30,6 +30,7 @@ public class DetailActivity extends AppCompatActivity {
     String mAddress;
     String [] addressArray;
     String mZipcode;
+    String mWebsite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,8 @@ public class DetailActivity extends AppCompatActivity {
         addressArray = mAddress.split(" ");
         mZipcode = bundle.getString("zipcode");
 
-        mWebsiteText.setText(bundle.getString("website"));
+        mWebsite = bundle.getString("website");
+        mWebsiteText.setText(mWebsite);
 
         String photoUrl = "https://theunitedstates.io/images/congress/225x275/" + bundle.getString("bioguide_id") + ".jpg";
         Ion.with(mPhotoImage)
@@ -89,6 +91,15 @@ public class DetailActivity extends AppCompatActivity {
 
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
                 startActivity(mapIntent);
+            }
+        });
+
+        mWebsiteText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri webpage = Uri.parse(mWebsite);
+                Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
+                startActivity(webIntent);
             }
         });
 

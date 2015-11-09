@@ -10,4 +10,8 @@
     <string name="Network_Unavailable">Network Unavailable.  Please try again later.</string>
     <string name="exception_caught">"Exception caught: "</string>
     <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_activity_contact">ContactActivity</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

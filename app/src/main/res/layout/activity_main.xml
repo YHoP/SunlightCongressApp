@@ -42,4 +42,15 @@
         android:layout_below="@+id/textView"
         android:layout_alignRight="@+id/textView"
         android:layout_alignEnd="@+id/textView"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose from my contact"
+        android:id="@+id/btnContact"
+        android:layout_below="@+id/zipcodeEditText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:background="#75b5ff"
+        android:textColor="@android:color/white"/>
 </RelativeLayout>
