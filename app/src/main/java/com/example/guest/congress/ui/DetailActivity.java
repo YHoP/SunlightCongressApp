@@ -3,10 +3,12 @@ package com.example.guest.congress.ui;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,6 +34,8 @@ public class DetailActivity extends AppCompatActivity {
     @Bind(R.id.officeText) TextView mOfficeText;
     @Bind(R.id.websiteText) TextView mWebsiteText;
 
+    String phoneNumber;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +50,12 @@ public class DetailActivity extends AppCompatActivity {
         mLastNameText.setText(bundle.getString("last_name"));
         mPartyText.setText("( "+ bundle.getString("party") + " )");
         mEmailText.setText(bundle.getString("oc_email"));
-        mPhoneText.setText(bundle.getString("phone"));
+
+        // phoneNumber = bundle.getString("phone");
+        phoneNumber = "9717708506";
+        mPhoneText.setText(phoneNumber);
+        phoneNumber = "tel:" + phoneNumber;
+
         mOfficeText.setText(bundle.getString("office"));
         mWebsiteText.setText(bundle.getString("website"));
 
@@ -54,6 +63,16 @@ public class DetailActivity extends AppCompatActivity {
         Ion.with(mPhotoImage)
                 //.placeholder(R.drawable.person)
                 .load(photoUrl);
+
+
+        mPhoneText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri number = Uri.parse(phoneNumber);
+                Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
+                startActivity(callIntent);
+            }
+        });
 
     }
 
