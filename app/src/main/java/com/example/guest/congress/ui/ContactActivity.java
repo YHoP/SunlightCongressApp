@@ -1,6 +1,7 @@
 package com.example.guest.congress.ui;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
@@ -52,17 +53,12 @@ public class ContactActivity extends ListActivity {
 
         mCursor = getContentResolver().query(uri, null, null, null, sortOrder);
 
+        mZipcode = new ArrayList<>();
+
         while(mCursor.moveToNext())
         {
-            String  address = mCursor.getString(mCursor.getColumnIndex(StructuredPostal.STREET));
-            String[] thisAddress = address.split(" ");
-            int position = thisAddress.length - 1;
-            String zipcode = thisAddress[position];
-            mZipcode.add(zipcode);
-            // String  Postcode = mCursor.getString(mCursor.getColumnIndex(StructuredPostal.POSTCODE));
-            // String  City = mCursor.getString(mCursor.getColumnIndex(StructuredPostal.CITY));
-            // Toast.makeText(this, "Address is : " + address, Toast.LENGTH_LONG).show();
-
+            String thisZipcode = mCursor.getString(mCursor.getColumnIndex(StructuredPostal.POSTCODE));
+            mZipcode.add(thisZipcode);
         }
 
 
@@ -84,7 +80,12 @@ public class ContactActivity extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         String zipcode =  mZipcode.get(position);
-        Toast.makeText(this, "Result is : " + zipcode, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Current contact Zipcode is : " + zipcode, Toast.LENGTH_LONG).show();
+
+        Intent legislatorsIntent = new Intent(ContactActivity.this, LegislatorsActivity.class);
+        legislatorsIntent.putExtra("zipcode", zipcode);
+        startActivity(legislatorsIntent);
+
     }
 
 
